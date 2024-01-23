@@ -1,0 +1,25 @@
+service:
+  name: first-laravel
+
+provider:
+  name: aws
+  runtime: provided # This might vary based on your serverless provider
+  environment:
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=db_sklh
+    DB_USERNAME=root
+    DB_PASSWORD=
+
+functions:
+  api:
+    handler: public/index.php # Update this path based on your Laravel app structure
+    events:
+      - http:
+          path: /
+          method: ANY
+
+plugins:
+  - serverless-aws-documentation # Include any necessary plugins
+
+# Other configuration settings, resources, etc.
