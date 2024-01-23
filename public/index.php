@@ -1,5 +1,5 @@
 <?php
-require __DIR__."/../public/index.php";
+require __DIR__.'/../vendor/autoload.php';
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
