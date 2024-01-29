@@ -20,6 +20,7 @@
     <h1>Add Student</h1>
     <form action="/student/add" method="post">
         @csrf
+        
         <div class="form-group">
             <label for="nis">NIS:</label>
             <input type="number" name="nis" id="nis" class="form-control" required value="{{ old('nis') }}">
@@ -35,7 +36,11 @@
         </div>
         <div class="form-group">
             <label for="kelas">Kelas:</label>
-            <input type="text" name="kelas" id="kelas" class="form-control" required value="{{ old('kelas') }}">
+            <select class="form-select" name="kelas_id">
+                @foreach ($kelas as $Kelas)
+                    <option name="kelas_id" value="{{ $Kelas->id }}">{{ $Kelas->kelas }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="alamat">Alamat:</label>

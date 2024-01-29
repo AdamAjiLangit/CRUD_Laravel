@@ -57,7 +57,7 @@ class KelasController extends Controller
         $result = Kelas::create($validatedData);
 
         if ($result) {
-            return redirect('/kelas/all')->with('success', 'Student added successfully!');
+            return redirect('/kelas/all')->with('success', 'Kelas added successfully!');
         }
 
     }

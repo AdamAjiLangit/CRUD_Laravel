@@ -21,6 +21,9 @@
             {{ session('success') }}
         </div>
     @endif
+    @php
+        $no = 1;
+    @endphp
     <table class="table table-dark table-hover">
         <thead>
             <tr>
@@ -34,10 +37,9 @@
         <tbody>
             @foreach ($students as $student)
                 <tr>
-
                     <td>{{ $student->nis }}</td>
                     <td>{{ $student->nama }}</td>
-                    <td>{{ $student->kelas }}</td>
+                    <td>{{ $student->kelas->kelas }}</td>
                     <td>{{ $student->alamat }}</td>
                     <td>
                         <a type="button" class="btn btn-primary" href="/student/detail/{{ $student->id }}">Detail</a>

@@ -8,11 +8,13 @@
 
         <div class="form-group">
             <label for="nis">NIS:</label>
-            <input type="number" name="nis" id="nis" class="form-control" readonly value="{{ old('nis', $student->nis) }}" required>
+            <input type="number" name="nis" id="nis" class="form-control" readonly
+                value="{{ old('nis', $student->nis) }}" required>
         </div>
         <div class="form-group">
             <label for="nama">Nama:</label>
-            <input type="text" name="nama" id="nama" class="form-control" value="{{ old('nama', $student->nama) }}" required>
+            <input type="text" name="nama" id="nama" class="form-control"
+                value="{{ old('nama', $student->nama) }}" required>
         </div>
         <div class="form-group">
             <label for="tanggal_lahir">Tanggal Lahir:</label>
@@ -21,12 +23,19 @@
         </div>
         <div class="form-group">
             <label for="kelas">Kelas:</label>
-            <input type="text" name="kelas" id="kelas" class="form-control" value="{{ old( 'kelas', $student->kelas)}}" required>
+            <select class="form-select" name="kelas_id">
+                @foreach ($kelas as $Kelas)
+                    <option name="kelas_id" value="{{ $Kelas->id }}"
+                        {{ $Kelas->id == $student->kelas_id ? 'selected' : '' }}>
+                        {{ $Kelas->kelas }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="alamat">Alamat:</label>
-            <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat', $student->alamat) }}"
-                required>
+            <input type="text" name="alamat" id="alamat" class="form-control"
+                value="{{ old('alamat', $student->alamat) }}" required>
         </div>
 
         <button type="submit" class="btn btn-primary" style="margin-top: 20px"

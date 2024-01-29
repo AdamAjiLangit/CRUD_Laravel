@@ -38,7 +38,7 @@
             <td>{{ $student->nis }}</td>
             <td>{{ $student->nama }}</td>
             <td>{{ $student->tanggal_lahir }}</td>
-            <td>{{ $student->kelas }}</td>
+            <td>{{ $student->kelas->kelas }}</td>
             <td>{{ $student->alamat }}</td>
 
         </tr>

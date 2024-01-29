@@ -17,7 +17,7 @@
 </style>
 
 @section('container')
-    <h1>Add Student</h1>
+    <h1>Add Class</h1>
     <form action="/kelas/add" method="post">
         @csrf
         <div class="form-group">

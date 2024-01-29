@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Kelas;
 
 
 
@@ -29,6 +30,7 @@ class StudentsController extends Controller
     {
         return view('student.create', [
             'title' => 'Add Student',
+            'kelas' => Kelas::all(),
         ]);
     }
 
@@ -37,6 +39,7 @@ class StudentsController extends Controller
         $student = Student::find($id);
         return view('student.edit', compact('student'), [
             'title' => 'Edit Student',
+            'kelas' => Kelas::all(),
         ]);
     }
 
@@ -56,7 +59,7 @@ class StudentsController extends Controller
             'nis' => 'required|max:255',
             'nama' => 'required|max:255',
             'tanggal_lahir' => 'required',
-            'kelas' => 'required',
+            'kelas_id' => 'required',
             'alamat' => 'required',
         ]);
 
