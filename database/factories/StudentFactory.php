@@ -21,7 +21,9 @@ class StudentFactory extends Factory
             'nama' => fake()->name(),
             'tanggal_lahir' => fake()->date(),
             'kelas_id' => fake()->numberBetween(1, 6),
+            'gender_id' => fake()->numberBetween(1, 2),
             'alamat' => fake()->address(),
+            'gambar' => 'https://source.unsplash.com/random/100x138/?person'
         ];
     }
 }

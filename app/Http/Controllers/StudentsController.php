@@ -5,16 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Kelas;
+use App\Models\Gender;
 
 
 
 class StudentsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $genderOptions = Gender::all(); // Ambil semua gender untuk opsi dropdown
+
+        $selectedGender = $request->input('gender_id'); // Ambil gender yang dipilih dari form
+
+        $students = Student::when($selectedGender, function ($query) use ($selectedGender) {
+            return $query->where('gender_id', $selectedGender);
+        })
+            ->latest()
+            ->filter(request(['search']))
+            ->paginate(5)
+            ->appends(['gender_id' => $selectedGender]); // Append filter parameters to pagination links
+
         return view('student.all', [
             "title" => "Students",
-            "students" => Student::all()
+            'gender' => Gender::all(),
+            "students" => $students,
+            "selectedGender" => $selectedGender, // Add this line to ensure it's always defined
         ]);
     }
 
@@ -31,6 +46,7 @@ class StudentsController extends Controller
         return view('student.create', [
             'title' => 'Add Student',
             'kelas' => Kelas::all(),
+            'gender' => Gender::all(),
         ]);
     }
 
@@ -40,6 +56,7 @@ class StudentsController extends Controller
         return view('student.edit', compact('student'), [
             'title' => 'Edit Student',
             'kelas' => Kelas::all(),
+            'gender' => Gender::all(),
         ]);
     }
 
@@ -60,6 +77,7 @@ class StudentsController extends Controller
             'nama' => 'required|max:255',
             'tanggal_lahir' => 'required',
             'kelas_id' => 'required',
+            'gender_id' => 'required',
             'alamat' => 'required',
         ]);
 

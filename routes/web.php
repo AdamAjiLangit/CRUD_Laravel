@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\GenderController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,28 +18,28 @@ use App\Http\Controllers\StudentsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/hello', function () {
-    return ("Hello World!");
-});
+// Route::get('/hello', function () {
+//     return ("Hello World!");
+// });
 
-Route::get('/home', function () {
-    return view('home', [
-        "title" => "Home"
-    ]);
-});
+// Route::get('/home', function () {
+//     return view('home', [
+//         "title" => "Home"
+//     ]);
+// });
 
-Route::get('/about', function () {
-    return view('about', [
-        "title" => "About",
-        "Nama" => "Adam Aji Langit",
-        "Kelas" => "11 PPLG 2",
-        "Image" => "images\personalimage.jpg"
-    ]);
-});
+// Route::get('/about', function () {
+//     return view('about', [
+//         "title" => "About",
+//         "Nama" => "Adam Aji Langit",
+//         "Kelas" => "11 PPLG 2",
+//         "Image" => "images\personalimage.jpg"
+//     ]);
+// });
 
 Route::group(["prefix" => "/student"], function () {
     Route::get('all', [StudentsController::class, 'index']);
@@ -58,6 +61,15 @@ Route::group(["prefix" => "/kelas"], function () {
     Route::delete('/delete/{kelas}', [KelasController::class, 'destroy']);
 });
 
+Route::group(["prefix" => "/gender"], function () {
+    Route::get('all', [GenderController::class, 'index']);
+});
 
+Route::group(["prefix" => "/login"], function () {
+    Route::get('index', [LoginController::class, 'index']);
+});
 
-
+Route::group(["prefix" => "/register"], function () {
+    Route::get('index', [RegisterController::class, 'index']);
+    Route::post('/login/index', [RegisterController::class, 'store']);
+});
