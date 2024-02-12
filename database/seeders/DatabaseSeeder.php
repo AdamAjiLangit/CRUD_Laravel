@@ -20,15 +20,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Student::factory(10)->create();
-
-        Kelas::create([
-            'kelas' => '12 PPLG 1',
-        ]);
-
-        Kelas::create([
-            'kelas' => '12 PPLG 2',
-        ]);
+        \App\Models\Student::factory(50)->create();
+        \App\Models\Gender::factory(2)->create();
 
         Kelas::create([
             'kelas' => '10 PPLG 1',
@@ -44,6 +37,14 @@ class DatabaseSeeder extends Seeder
 
         Kelas::create([
             'kelas' => '11 PPLG 2',
+        ]);
+
+        Kelas::create([
+            'kelas' => '12 PPLG 1',
+        ]);
+
+        Kelas::create([
+            'kelas' => '12 PPLG 2',
         ]);
     }
 }
