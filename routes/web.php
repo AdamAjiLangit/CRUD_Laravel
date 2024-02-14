@@ -67,9 +67,10 @@ Route::group(["prefix" => "/gender"], function () {
 
 Route::group(["prefix" => "/login"], function () {
     Route::get('index', [LoginController::class, 'index']);
+    Route::post('index', [LoginController::class, 'authenticate']);
 });
 
 Route::group(["prefix" => "/register"], function () {
     Route::get('index', [RegisterController::class, 'index']);
-    Route::post('/login/index', [RegisterController::class, 'store']);
+    Route::post('index', [RegisterController::class, 'store']);
 });

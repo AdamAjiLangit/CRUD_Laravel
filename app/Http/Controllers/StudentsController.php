@@ -13,8 +13,6 @@ class StudentsController extends Controller
 {
     public function index(Request $request)
     {
-        $genderOptions = Gender::all(); // Ambil semua gender untuk opsi dropdown
-
         $selectedGender = $request->input('gender_id'); // Ambil gender yang dipilih dari form
 
         $students = Student::when($selectedGender, function ($query) use ($selectedGender) {
@@ -23,13 +21,13 @@ class StudentsController extends Controller
             ->latest()
             ->filter(request(['search']))
             ->paginate(5)
-            ->appends(['gender_id' => $selectedGender]); // Append filter parameters to pagination links
+            ->appends(['gender_id' => $selectedGender]);
 
         return view('student.all', [
             "title" => "Students",
             'gender' => Gender::all(),
             "students" => $students,
-            "selectedGender" => $selectedGender, // Add this line to ensure it's always defined
+            "selectedGender" => $selectedGender,
         ]);
     }
 
