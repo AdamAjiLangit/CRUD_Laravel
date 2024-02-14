@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="row justify-content-center mb-3">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <form action="/student/all" method="GET">
                 <div class="input-group mb-3">
                     <select class="form-select" name="gender_id">
