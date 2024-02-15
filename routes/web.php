@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,28 +19,7 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/hello', function () {
-//     return ("Hello World!");
-// });
-
-// Route::get('/home', function () {
-//     return view('home', [
-//         "title" => "Home"
-//     ]);
-// });
-
-// Route::get('/about', function () {
-//     return view('about', [
-//         "title" => "About",
-//         "Nama" => "Adam Aji Langit",
-//         "Kelas" => "11 PPLG 2",
-//         "Image" => "images\personalimage.jpg"
-//     ]);
-// });
+Route::get('/', [DashboardController::class, 'index']);
 
 Route::group(["prefix" => "/student"], function () {
     Route::get('all', [StudentsController::class, 'index']);
@@ -66,11 +46,18 @@ Route::group(["prefix" => "/gender"], function () {
 });
 
 Route::group(["prefix" => "/login"], function () {
-    Route::get('index', [LoginController::class, 'index']);
+    Route::get('index', [LoginController::class, 'index'])->name('login')->middleware('guest');
     Route::post('index', [LoginController::class, 'authenticate']);
 });
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::group(["prefix" => "/register"], function () {
-    Route::get('index', [RegisterController::class, 'index']);
+    Route::get('index', [RegisterController::class, 'index'])->middleware('guest');
     Route::post('index', [RegisterController::class, 'store']);
 });
+
+Route::get('/dashboard', function() {
+    return view('dashboard.index');
+})->middleware('auth');
+
+

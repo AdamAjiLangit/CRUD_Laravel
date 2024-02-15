@@ -44,7 +44,7 @@
                                 class="form-control @error('username')
                             is-invalid
                         @enderror"
-                                placeholder="username" autofocus required  value="{{ old('username') }}">
+                                placeholder="username" autofocus required value="{{ old('username') }}">
                             <label for="username">Email address</label>
                             @error('username')
                                 <div class="invalid-feedback">
