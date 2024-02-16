@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardStudentController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+// Route::get('/', [DashboardController::class, 'index']);
 
 Route::group(["prefix" => "/student"], function () {
     Route::get('all', [StudentsController::class, 'index']);
@@ -57,7 +57,18 @@ Route::group(["prefix" => "/register"], function () {
 });
 
 Route::get('/dashboard', function() {
-    return view('dashboard.index');
+    return view('dashboard.index',
+    [
+        "title" => "Dashboard",
+    ]);
 })->middleware('auth');
 
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::resource('students', DashboardStudentController::class);
+    Route::get('students/index', [DashboardStudentController::class, 'index']);
+    Route::get('students/edit/{student}', [DashboardStudentController::class, 'edit']);
+    Route::put('students/update/{student}', [DashboardStudentController::class, 'update']);
+    Route::delete('students/delete/{student}', [DashboardStudentController::class, 'destroy']);
+});
 
+// Route::put('/dashboard/students/update/{student}', [DashboardStudentController::class, 'update']);

@@ -1,25 +1,5 @@
 @extends('layouts.main')
 
-<style>
-    #button:hover {
-        background-color: transparent;
-    }
-
-    .form-group {
-        margin-top: 20px;
-    }
-
-    .loading-text {
-        font-size: 18px;
-        color: #555555;
-        text-align: center;
-    }
-
-    #studentImage {
-        display: none;
-    }
-</style>
-
 @section('container')
     <h2>Detail Students {{ $student->nama }}</h2>
     <table class="table table-dark table-hover">
