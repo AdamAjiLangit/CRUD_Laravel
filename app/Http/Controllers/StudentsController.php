@@ -13,15 +13,20 @@ class StudentsController extends Controller
 {
     public function index(Request $request)
     {
-        $selectedGender = $request->input('gender_id'); // Ambil gender yang dipilih dari form
+        $selectedGender = $request->input('gender_id');
+        $searchTerm = $request->input('search');
 
         $students = Student::when($selectedGender, function ($query) use ($selectedGender) {
             return $query->where('gender_id', $selectedGender);
         })
+            ->when($searchTerm, function ($query) use ($searchTerm) {
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('nama', 'like', '%' . $searchTerm . '%');
+                });
+            })
             ->latest()
-            ->filter(request(['search']))
-            ->paginate(5)
-            ->appends(['gender_id' => $selectedGender]);
+            ->paginate(5, ['*'], 'students')
+            ->appends(['gender_id' => $selectedGender, 'search' => $searchTerm]);
 
         return view('student.all', [
             "title" => "Students",
@@ -30,6 +35,7 @@ class StudentsController extends Controller
             "selectedGender" => $selectedGender,
         ]);
     }
+
 
     public function show($student)
     {

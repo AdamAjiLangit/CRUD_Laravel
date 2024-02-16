@@ -95,14 +95,14 @@
                     <td>
                         <a type="button" id="button" class="btn btn-primary"
                             href="/kelas/detail/{{ $Kelas->id }}">Detail</a>
-                        <a type="button" id="button" class="btn btn-warning" href="/kelas/edit/{{ $Kelas->id }}"
+                        {{-- <a type="button" id="button" class="btn btn-warning" href="/kelas/edit/{{ $Kelas->id }}"
                             style="color: white"">Edit</a>
                         <form action="/kelas/delete/{{ $Kelas->id }}" method="POST" style="display: inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" id="button"
                                 onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
-                        </form>
+                        </form> --}}
                     </td>
                 </tr>
             @endforeach

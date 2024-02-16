@@ -1,6 +1,5 @@
 @extends('layouts.main')
 
-
 @section('container')
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
@@ -74,15 +73,6 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search.." name="search"
                         value="{{ request('search') }}">
-                    <button id="button" class="btn btn-primary" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row justify-content-center mb-3">
-        <div class="col-md-3">
-            <form action="/student/all" method="GET">
-                <div class="input-group mb-3">
                     <select class="form-select" name="gender_id">
                         <option value="">-- Select Gender --</option>
                         @foreach ($gender as $genderOption)
@@ -92,11 +82,12 @@
                             </option>
                         @endforeach
                     </select>
-                    <button id="button" class="btn btn-primary" type="submit">Filter</button>
+                    <button id="button" class="btn btn-primary" type="submit">Search & Filter</button>
                 </div>
             </form>
         </div>
     </div>
+
 
     @if ($students->count())
         {{-- tempat content --}}
@@ -133,14 +124,6 @@
                         <td>
                             <a type="button" id="button" class="btn btn-primary"
                                 href="/student/detail/{{ $student->id }}">Detail</a>
-                            <a type="button" id="button" class="btn btn-warning"
-                                href="/student/edit/{{ $student->id }}" style="color: white">Edit</a>
-                            <form action="/student/delete/{{ $student->id }}" method="POST" style="display: inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" id="button"
-                                    onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -153,7 +136,6 @@
     <div class="d-flex justify-content-end">
         {{ $students->links() }}
     </div>
-
 
     <script src="/js/color-modes.js"></script>
 @endsection
