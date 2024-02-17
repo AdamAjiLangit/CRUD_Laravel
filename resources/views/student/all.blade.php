@@ -92,8 +92,6 @@
     @if ($students->count())
         {{-- tempat content --}}
         <h1>Tabel Data Siswa</h1>
-        <a type="button" class="btn btn-primary" href="/student/create/" style="margin-bottom: 15px; margin-top:15px"
-            id="button">Add Data</a>
         @if (session('success'))
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}

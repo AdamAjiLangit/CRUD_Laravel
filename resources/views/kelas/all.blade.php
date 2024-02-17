@@ -69,8 +69,6 @@
     </div>
     {{-- tempat content --}}
     <h1>Tabel Data Kelas</h1>
-    <a type="button" id="button" class="btn btn-primary" href="/kelas/create/"
-        style="margin-bottom: 15px; margin-top:15px;">Add Data</a>
     @if (session('success'))
         <div class="alert alert-success" role="alert">
             {{ session('success') }}

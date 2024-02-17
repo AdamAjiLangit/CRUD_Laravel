@@ -13,11 +13,27 @@ class DashboardStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $selectedGender = $request->input('gender_id');
+        $searchTerm = $request->input('search');
+
+        $students = Student::when($selectedGender, function ($query) use ($selectedGender) {
+            return $query->where('gender_id', $selectedGender);
+        })
+            ->when($searchTerm, function ($query) use ($searchTerm) {
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('nama', 'like', '%' . $searchTerm . '%');
+                });
+            })
+            ->latest()
+            ->get();
+
         return view('dashboard.students.index', [
             "title" => "Students",
-            'students' => Student::all(),
+            'gender' => Gender::all(),
+            "students" => $students,
+            "selectedGender" => $selectedGender,
         ]);
     }
 
@@ -26,7 +42,11 @@ class DashboardStudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.students.create', [
+            'title' => 'Add Student',
+            'kelas' => Kelas::all(),
+            'gender' => Gender::all(),
+        ]);
     }
 
     /**
@@ -34,7 +54,20 @@ class DashboardStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nis' => 'required|max:255',
+            'nama' => 'required|max:255',
+            'tanggal_lahir' => 'required',
+            'kelas_id' => 'required',
+            'gender_id' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        $result = Student::create($validatedData);
+
+        if ($result) {
+            return redirect('/dashboard/students')->with('success', 'Student added successfully!');
+        }
     }
 
     /**
