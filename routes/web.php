@@ -65,6 +65,8 @@ Route::get('/dashboard', function() {
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::resource('students', DashboardStudentController::class);
+    Route::get('create', [DashboardStudentController::class, 'create']);
+    Route::post('students/add', [DashboardStudentController::class, 'store']);
     Route::get('students/index', [DashboardStudentController::class, 'index']);
     Route::get('students/edit/{student}', [DashboardStudentController::class, 'edit']);
     Route::put('students/update/{student}', [DashboardStudentController::class, 'update']);
